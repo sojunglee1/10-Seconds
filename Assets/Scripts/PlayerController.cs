@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         if (!(movementInput.magnitude > 0 || rotationInput.magnitude > 0))
         {
             moveDirection = Vector3.zero;
+            rotationInput = Vector3.zero;
             animator.SetInteger("AnimationState", 0);
             return;
         }
@@ -100,10 +101,15 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.tag == "Key")
         {
             GameManager.instance.FoundKey = true;
+            Destroy(collision.gameObject);
         }
         else if (collision.gameObject.tag == "Door")
         {
             GameManager.instance.FoundDoor = true;
+            if (GameManager.instance.FoundKey)
+            {
+                GameManager.instance.GameWon = true;
+            }
         }
     }
 }

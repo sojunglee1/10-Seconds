@@ -22,10 +22,16 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.FoundKey & GameManager.instance.FoundDoor)
+        if (GameManager.instance.GameWon)
         {
             GameResultsScreen.gameObject.SetActive(true);
             GameResultsText.text = "You win!";
+            GameManager.instance.PauseGame();
+        }
+        else if (GameManager.instance.GameLost)
+        {
+            GameResultsScreen.gameObject.SetActive(true);
+            GameResultsText.text = "You Lost!";
             GameManager.instance.PauseGame();
         }
         else
@@ -38,5 +44,10 @@ public class UIManager : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

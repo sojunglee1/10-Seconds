@@ -11,25 +11,44 @@ public class GameManager : MonoBehaviour
     public bool FoundKey = false;
     public bool FoundDoor = false;
 
+    public bool GameWon = false;
+    public bool GameLost = false;
+
     private void Awake()
     {
         instance = this;
         objective = "Find the Key";
+    }
+    private void Start()
+    {
+        ResumeGame();
     }
     private void Update()
     {
         if (time > 0)
         {
             time -= Time.deltaTime;
+
+        }
+        else if (time < 0)
+        {
+            if (!FoundKey || !FoundDoor)
+            {
+                GameLost = true;
+            }
+            else if (FoundKey & FoundDoor)
+            {
+                GameWon = true;
+            }    
         }
 
         if (!FoundKey & !FoundDoor)
         {
-            objective = "Find the Key";
+            objective = "Find the Gold Key";
         }
         else if (FoundKey & !FoundDoor)
         {
-            objective = "Find the Door";
+            objective = "Find the Gold Door";
         }
     }
 
