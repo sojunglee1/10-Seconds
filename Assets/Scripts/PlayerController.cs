@@ -98,13 +98,17 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = false;
         }
+
         else if (collision.gameObject.tag == "Key")
         {
+            GetComponent<AudioSource>().Play();
             GameManager.instance.FoundKey = true;
             Destroy(collision.gameObject);
         }
+
         else if (collision.gameObject.tag == "Door")
         {
+            GetComponent<AudioSource>().Play();
             GameManager.instance.FoundDoor = true;
             if (GameManager.instance.FoundKey)
             {
